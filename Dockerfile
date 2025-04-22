@@ -7,8 +7,11 @@ WORKDIR /app
 # Install dependencies
 COPY package.json package-lock.json ./
 RUN npm install --legacy-peer-deps
+RUN npm install -g serve
 
 # Copy all files
 COPY . .
 
-CMD ["npm", "run", "start:dev"]
+RUN npm run build
+
+CMD ["serve", "-s", "build"]
